@@ -1,5 +1,5 @@
 const path = require('path');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -39,5 +39,13 @@ module.exports = {
   resolve: {
     // Enable importing JS / JSX files without specifying their extension
     extensions: ['.js', '.jsx'],
+  },
+  devServer: {
+    static: {
+      publicPath: '/public',
+      directory: path.join(__dirname, 'public'),
+    },
+    port: 8080,
+    proxy: 'http://localhost:3000',
   },
 };
