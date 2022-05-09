@@ -17,7 +17,7 @@
 // CREATE TABLE old_books (
 //   old_book_id SERIAL PRIMARY KEY,
 //   user_id int references users(user_id),
-//   bookISBN int references books(isbn),
+//   bookISBN VARCHAR(30) references books(isbn),
 //   condition VARCHAR(100)
 //   );
 
