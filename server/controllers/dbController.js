@@ -28,7 +28,7 @@ dbController.findBook = (req, res, next) => {
 }
 
 
-// dbController.addBook
+//dbController.addBook
 // if (!res.locals.bookInDB)
 // adds the book to the book table
 dbController.addBook = (req, res, next) => {
@@ -58,7 +58,7 @@ dbController.addBook = (req, res, next) => {
   }
 }
 
-// dbController.findOldBook
+//dbController.findOldBook
 // query the oldbook table.
 // If the book doesn't exist,
 // next(err);
@@ -67,8 +67,7 @@ dbController.addBook = (req, res, next) => {
 // joining the userinfo with book condition, 
 // also include the _id of oldbook table 
 dbController.findOldBook = (req, res, next) => {
-  const keyword = 'giving'
-  // const keyword= req.body.searchString;
+  const keyword= req.body.searchString;
   const query = `SELECT users.username, users.email, books.title, books.author, old_books.condition, books.isbn
   FROM users
   JOIN old_books
@@ -79,7 +78,7 @@ dbController.findOldBook = (req, res, next) => {
 
   db.query(query)
     .then((data) => {
-      // console.log(data.rows);
+      console.log(data.rows);
       res.locals.oldbooks = data.rows;
       next();
     })
@@ -89,7 +88,7 @@ dbController.findOldBook = (req, res, next) => {
     });
 }
 
-// dbController.addOldBook
+//dbController.addOldBook
 // adds new field to the oldbook
 // (user._id: req.cookies.ssid),
 // (isbn: req.body.isbn)
