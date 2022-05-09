@@ -1,5 +1,6 @@
 const React = require('react');
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+//will house all the react components
 import Nav from './components/Nav.jsx';
 import Root from './routes/Root.jsx';
 import Login from './routes/Login.jsx';
@@ -25,6 +26,7 @@ class App extends React.Component {
           <hr className="bottom-hr"/> 
         </div>
         <Router>
+          {/* NAV will always be rendered */}
           <Nav loggedIn = {this.state.loggedIn} userID = {this.state.userID}/>
           <Routes>
             <Route path="/login" element = {<Login loggedIn = {this.state.loggedIn} userID = {this.state.userID}/>}></Route>
