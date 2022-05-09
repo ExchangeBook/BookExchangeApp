@@ -34,7 +34,7 @@ apiController.findBook = (req, res, next) => {
 
 apiController.findAuthor = (req, res, next) => {
   const authorEndpoint = res.locals.authorEndpoint;
-  axios.get(`https://openlibrary.org/authors/${authorEndpoint}.json`)
+  axios.get(`https://openlibrary.org/${authorEndpoint}.json`)
     .then(response => {
       const authorInfo = response.data;
       const { name } = authorInfo;

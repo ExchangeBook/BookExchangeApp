@@ -12,10 +12,9 @@ router.get('/findBook', apiController.findBook, apiController.findAuthor, (req, 
 
 
 // assumes input is -->>    { "isbn": "xxxxxxx"}
-router.post('/kai', dbController.addBook, (req, res) => {
-  // console.log("hiiiiiiiiiiiiii")
-  console.log(res.locals.bookindb);
-  return res.status(200).json({ hi: res.locals.bookInDB });
+router.get('/kai', dbController.findMyBookList, (req, res) => {
+  console.log(res.locals.mybooks);
+  return res.status(200).json({greet: 'hi'});
 })
 
 
