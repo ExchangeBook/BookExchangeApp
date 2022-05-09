@@ -25,8 +25,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-// unknown route
-app.use((req, res) => res.status(404).send('Unknown page, please try again.'));
+// unknown route ****Since we are using react router, 404 error will be handled on the front end side****
+// app.use((req, res) => res.status(404).send('Unknown page, please try again.'));
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
 //global error handler
 app.use((err, req, res, next) => {
