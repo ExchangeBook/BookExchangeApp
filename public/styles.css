@@ -2,6 +2,7 @@ body {
   background-color: #9aafb0;
   font-family: 'Work Sans', sans-serif;
 }
+
 hr {
   border: 0.2px solid #4a4141;
   width: 80vw;
@@ -15,9 +16,9 @@ h1 {
   color: #4a4141;
 }
 
-a{
+a {
   text-decoration: none;
-  color:#4a4141;
+  color: #4a4141;
 }
 
 /*********************************
@@ -33,21 +34,21 @@ a{
   padding: 0;
   margin: 20px 10px;
   align-self: center;
-  display:flex;
+  display: flex;
   justify-content: space-around;
   list-style-type: none;
   font-size: 17.5px;
   font-family: 'Josefin Slab', serif;
 }
 
-.nav-items a{
+.nav-items a {
   text-decoration: none;
-  color:#4a4141;
+  color: #4a4141;
 }
 
-.nav-items a:hover{
+.nav-items a:hover {
   text-decoration: none;
-  color:#ebe6dc;
+  color: #ebe6dc;
   text-shadow: 2px 2px 4px #4a4141;
 }
 
@@ -59,19 +60,19 @@ a{
   margin: 10vh auto;
   display: flex;
   align-items: center;
-  position:relative;
+  position: relative;
 }
 
 .drawing {
   width: 300px;
-  margin-left:10%;
+  margin-left: 10%;
 }
 
 .drawing-description {
-  color:antiquewhite;
+  color: antiquewhite;
   text-align: right;
-  font-size: 30px;
-  margin-right:10%;
+  font-size: 25px;
+  margin-right: 10%;
 }
 
 .blob {
@@ -86,10 +87,21 @@ a{
 }
 
 @keyframes move {
-  0%   { transform: scale(1)   translate(10px, -30px); }
-  40%  { transform: scale(0.8, 1) translate(80px, 30px) rotate(160deg); }
-  80%  { transform: scale(1.3) translate(0px, 50px) rotate(-20deg); }
-  100% { transform: scale(1)   translate(10px, -30px); }
+  0% {
+    transform: scale(1) translate(10px, -30px);
+  }
+
+  40% {
+    transform: scale(0.8, 1) translate(80px, 30px) rotate(160deg);
+  }
+
+  80% {
+    transform: scale(1.3) translate(0px, 50px) rotate(-20deg);
+  }
+
+  100% {
+    transform: scale(1) translate(10px, -30px);
+  }
 }
 
 /*********************************
@@ -110,14 +122,14 @@ a{
   text-align: center;
 }
 
-.usercred-form{
+.usercred-form {
   margin: 7px;
   gap: 10px;
   display: flex;
   flex-direction: column;
 }
 
-.usercred-form input{
+.usercred-form input {
   height: 30px;
   border-radius: 5px;
   border-style: none;
@@ -133,16 +145,18 @@ a{
   border: none;
   border-radius: 5px;
   background-color: #5a726e;
-  color:white;
+  color: white;
   font-family: 'Josefin Slab', serif;
 }
 
-.usercred-form input[type=submit]:hover, input[type=submit]:focus {
-  color:#edddbd;
+.usercred-form input[type=submit]:hover,
+input[type=submit]:focus {
+  color: #edddbd;
   text-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
 
-.usercred-form input:hover, input:focus{
+.usercred-form input:hover,
+input:focus {
   box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, 0.1);
   outline-width: 0;
 }
@@ -161,14 +175,14 @@ a{
   background: #bfbcb6;
 }
 
-.search-form{
+.search-form {
   margin: 5px 10px;
   gap: 10px;
   display: flex;
   flex-direction: row;
 }
 
-.search-form input{
+.search-form input {
   height: 30px;
   width: 90%;
   border-radius: 5px;
@@ -185,26 +199,28 @@ a{
   border: none;
   border-radius: 5px;
   background-color: #5a726e;
-  color:white;
+  color: white;
   font-family: 'Work Sans', sans-serif;
 }
 
-.search-form input[type=submit]:hover, input[type=submit]:focus {
-  color:#edddbd;
+.search-form input[type=submit]:hover,
+input[type=submit]:focus {
+  color: #edddbd;
   text-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
 
-.search-form input:hover, input:focus{
+.search-form input:hover,
+input:focus {
   box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, 0.1);
   outline-width: 0;
 }
 
 .req-button:hover {
-  color:white;
+  color: white;
 }
 
 .req-button:hover {
-  color:#edddbd;
+  color: #edddbd;
   box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
 
@@ -214,6 +230,7 @@ a{
 .result-box {
   margin: 10px;
 }
+
 .result-table {
   margin-top: 30px;
   width: 100%;
@@ -222,14 +239,17 @@ a{
   padding: 10px;
   font-family: 'Work Sans', sans-serif;
 }
-.result-table tr{
+
+.result-table tr {
   height: 30px;
 }
-.result-table th{
+
+.result-table th {
   height: 30px;
   text-align: left;
   font-family: 'Bodoni Moda', serif;
 }
+
 .req-button {
   height: 25px;
   padding: 3px;
@@ -239,9 +259,21 @@ a{
   border: none;
   border-radius: 5px;
   background-color: #5a726e;
-  color:white;
+  color: white;
   font-family: 'Work Sans', sans-serif;
 }
+
+/*********************************
+        User page box 
+**********************************/
+#condition {
+  border-style: none;
+  border-radius: 5px;
+  padding: 0px 10px;
+  width: 200px;
+}
+
+
 /* .result-table tr{
   padding: 15px 5px;
 } */
