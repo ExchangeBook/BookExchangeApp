@@ -3,10 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
+    //where our bundling of react components start
     main: path.resolve(__dirname, './client/index.js'),
   },
   output: {
+    //name the file 
     filename: 'bundle.js',
+    //path where we put the file above into
+    //created everytime npm run build 
     path: path.resolve(__dirname, './public/build'),
   },
   module: {
@@ -43,9 +47,11 @@ module.exports = {
   devServer: {
     static: {
       publicPath: '/public',
-      directory: path.join(__dirname, 'public'),
+      directory: path.join(__dirname, './public'),
     },
     port: 8080,
-    proxy: ['http://localhost:3000'],
+    proxy: {
+      '/api': {target: 'http://localhost:3000'},
+    }
   },
 };

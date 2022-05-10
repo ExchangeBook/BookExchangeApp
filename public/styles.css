@@ -199,6 +199,14 @@ a{
   outline-width: 0;
 }
 
+.req-button:hover {
+  color:white;
+}
+
+.req-button:hover {
+  color:#edddbd;
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
+}
 
 /*********************************
         Search Result box 

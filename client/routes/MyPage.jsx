@@ -1,56 +1,77 @@
 const React = require('react');
-import SearchBookRow from '../components/SearchBookRow';
+import MyBookRow from '../components/MyBookRow';
 
 class MyPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      oldbooks:[],
+      myoldbooks:[],
     }
-
-    this.searchBook = this.searchBook.bind(this);
+    this.getMyOldBooks();
+    this.rerender = this.rerender.bind(this);
   }
 
-  searchBook = (e) => {
-    console.log(document.getElementById('searchString').value);
-    e.preventDefault();
-    fetch('/api/findOldBook', {
+  getMyOldBooks = () => {
+    fetch('/api/getMyOldBookList', {
+      method:'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      this.setState({myoldbooks:data});
+    });
+  }
+
+  addOldBook = () => {
+    fetch('/api/addOldBook', {
       method:'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({searchString: document.getElementById('searchString').value})
+      body: JSON.stringify({isbn: document.getElementById('addString').value})
     })
     .then(response => response.json())
-    .then(data => this.setState({oldbooks:data}));
+    .then( () => {
+      this.rerender();
+    });
+  }
+  
+  rerender = () => {
+    this.getMyOldBooks();
+    location.reload();
   }
 
   render(){
     let table;
     const rows = [];
-    if (this.state.oldbooks.length > 0){
+    if (this.state.myoldbooks.length > 0){
       rows.push(            
         <tr>
           <th key={0}>Title</th>
           <th key={1}>Author</th>
           <th key={2}>ISBN</th>
           <th key={3}>Condition</th>
-          <th key={4}>Owner</th>
-          <th key={6}></th>
+          <th key={4}></th>
         </tr>)
-      for (let i = 0; i < this.state.oldbooks.length; i++){
-        rows.push(<SearchBookRow 
-          {...this.state.oldbooks[i]}
+      for (let i = 0; i < this.state.myoldbooks.length; i++){
+        rows.push(<MyBookRow 
+          {...this.state.myoldbooks[i]}
+          key = {i}
+          rerender = {this.rerender}
         />)
       }
       table = <table className="result-table">{rows}</table>
     }
     return (
-      <div class="search-box">
-        <form class="search-form">
-          <input type="text" placeholder="search book by title" name="title" id="searchString" required />
-          <input type="submit" value="search" onClick={this.searchBook}/>
+      <div className="search-box">
+        <form className="search-form">
+          <input type="text" placeholder="search book by title" name="title" id="addString" required />
+          <input type="submit" value="Add" onClick={this.getMyOldBooks}/>
         </form>
         <div class="result-box">
           { table }
