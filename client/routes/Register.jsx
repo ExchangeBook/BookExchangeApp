@@ -1,15 +1,42 @@
 const React = require('react');
 
 class Register extends React.Component {
-  render(){
+
+  register = (e) => {
+    e.preventDefault();
+    fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value,
+        passwordconfirm: document.getElementById('passwordconfirm').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      });
+  }
+
+  render() {
     return (
-      <div class="usercred-box">
-        <div class="usercred-title">Book Exchange</div>
-        <form class="usercred-form">
-          <input type="text" placeholder="username" name="username" required />
-          <input type="password" placeholder="password" name="password" required />
-          <input type="password" placeholder="confirm password" name="password" required />
-          <input type="submit" value="Log in"/>
+      <div className="usercred-box">
+        <div className="usercred-title">Book Exchange</div>
+        <form className="usercred-form">
+          <input type="text" placeholder="username" name="username" id="username" required />
+          <input type="password" placeholder="password" name="password" id="password" required />
+          <input type="password" placeholder="confirm password" name="passwordconfirm" id="passwordconfirm" required />
+          <input type="email" placeholder="email" name="email" id="email" required />
+          <input type="phone" placeholder="phone number" name="phone" id="phone" required />
+          <input type="text" placeholder="zipcode" name="address" id="address" required />
+          <input type="submit" value="Register" onClick={this.register} />
         </form>
       </div>
     )
