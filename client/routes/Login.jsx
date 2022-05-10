@@ -1,14 +1,19 @@
 const React = require('react');
 
 class Login extends React.Component {
-  render(){
+
+  login = (e) => {
+    return;
+  }
+
+  render() {
     return (
-      <div class="usercred-box">
-        <div class="usercred-title">Book Exchange</div>
-        <form class="usercred-form">
+      <div className="usercred-box">
+        <div className="usercred-title">Book Exchange</div>
+        <form className="usercred-form">
           <input type="text" placeholder="username" name="username" required />
           <input type="password" placeholder="password" name="password" required />
-          <input type="submit" value="Log in"/>
+          <input type="submit" value="Log in" />
         </form>
       </div>
     )

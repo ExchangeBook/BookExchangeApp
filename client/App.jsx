@@ -1,5 +1,6 @@
 const React = require('react');
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+//will house all the react components
 import Nav from './components/Nav.jsx';
 import Root from './routes/Root.jsx';
 import Login from './routes/Login.jsx';
@@ -17,22 +18,23 @@ class App extends React.Component {
     };
   }
 
-  render(){
+  render() {
     return (
       <div>
         <div className="header-container">
-          <h1><a href="">Book Exchange</a></h1>
-          <hr className="bottom-hr"/> 
+          <h1><a href="">The Book Exchange</a></h1>
+          <hr className="bottom-hr" />
         </div>
         <Router>
-          <Nav loggedIn = {this.state.loggedIn} userID = {this.state.userID}/>
+          {/* NAV will always be rendered */}
+          <Nav loggedIn={this.state.loggedIn} userID={this.state.userID} />
           <Routes>
-            <Route path="/login" element = {<Login loggedIn = {this.state.loggedIn} userID = {this.state.userID}/>}></Route>
-            <Route path="/register" element = {<Register loggedIn = {this.state.loggedIn} userID = {this.state.userID}/>}></Route>
-            <Route path="/mypage" element = {<MyPage loggedIn = {this.state.loggedIn} userID = {this.state.userID}/>}></Route>
-            <Route path="/search" element = {<Search loggedIn = {this.state.loggedIn} userID = {this.state.userID}/>}></Route>
-            <Route path="/" element = {<Root />}></Route>
-            <Route path="/:id" element = {<NotFound />}></Route>
+            <Route path="/login" element={<Login loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
+            <Route path="/register" element={<Register loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
+            <Route path="/mypage" element={<MyPage loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
+            <Route path="/search" element={<Search loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
+            <Route path="/" element={<Root />}></Route>
+            <Route path="/:id" element={<NotFound />}></Route>
           </Routes>
         </Router>
       </div>
