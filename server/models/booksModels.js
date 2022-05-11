@@ -31,7 +31,7 @@ module.exports = {
 //   genre VARCHAR(50)
 //   );
 
-// CREATE TABLE old_books (
+// CREATE TABLE users_books (
 //   old_book_id SERIAL PRIMARY KEY,
 //   user_id int references users(user_id),
 //   bookisbn VARCHAR(30) references books(isbn),

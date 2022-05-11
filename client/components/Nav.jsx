@@ -2,11 +2,13 @@ const React = require('react');
 import { Link } from "react-router-dom";
 
 class Nav extends React.Component {
+
   render() {
     const navComponents = [];
-    if (true) {
+    if (this.props.loggedIn) {
+      console.log(this.props)
       navComponents.push(
-        <ul className="nav-items">
+        <ul key={0} className="nav-items">
           <li key={0}><Link to="/">Home</Link></li>
           <li key={1}><Link to="/mypage">My Books</Link></li>
           <li key={2}><Link to="/exchange">My Requests</Link></li>
@@ -16,7 +18,7 @@ class Nav extends React.Component {
       )
     } else {
       navComponents.push(
-        <ul>
+        <ul key={1}>
           <li key={1}><Link to="/login">Login</Link></li>
           <li key={2}><Link to="/register">Register</Link></li>
         </ul>
