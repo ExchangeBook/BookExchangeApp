@@ -9,8 +9,9 @@ class Nav extends React.Component {
         <ul className="nav-items">
           <li key={0}><Link to="/">Home</Link></li>
           <li key={1}><Link to="/mypage">My Books</Link></li>
-          <li key={2}><Link to="/search">Find Books</Link></li>
-          <li key={3}><Link to="/">Log out</Link></li>
+          <li key={2}><Link to="/exchange">My Requests</Link></li>
+          <li key={3}><Link to="/search">Find Books</Link></li>
+          <li key={4}><Link to="/">Log out</Link></li>
         </ul>
       )
     } else {
