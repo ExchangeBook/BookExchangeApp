@@ -39,12 +39,12 @@ dbController.addBook = (req, res, next) => {
 
 dbController.findOldBook = (req, res, next) => {
   const keyword = req.body.searchString;
-  const query = `SELECT users.username, users.email, books.title, books.author, old_books.condition, books.isbn
+  const query = `SELECT users.username, users.email, books.title, books.author, users_books.condition, books.isbn
   FROM users
-  JOIN old_books
-  ON users.user_id = old_books.user_id
+  JOIN users_books
+  ON users.user_id = users_books.user_id
   JOIN books
-  ON old_books.bookISBN = books.isbn
+  ON users_books.bookISBN = books.isbn
   WHERE title ~* '\\y${keyword}\\y'`;
 
   db.query(query)
@@ -62,7 +62,7 @@ dbController.addOldBook = (req, res, next) => {
   const { isbn, condition } = req.body;
   const userID = '1';
   const query = `
-  INSERT INTO old_books ("user_id", "bookisbn", "condition")
+  INSERT INTO users_books ("user_id", "bookisbn", "condition")
   VALUES ('${userID}', '${isbn}', '${condition}')
   `;
   db.query(query)
@@ -75,7 +75,7 @@ dbController.addOldBook = (req, res, next) => {
 dbController.deleteOldBook = (req, res, next) => {
   //deconstruct the res.locals.book object 
   const _id = req.body.myOldBookId;
-  const query = `DELETE FROM old_books WHERE old_book_id = ${_id}`;
+  const query = `DELETE FROM users_books WHERE users_books_id = ${_id}`;
   //CHANGE TO THIS LATER ONCE API WORKS AND WHAT RESULTS ARE ^^
   db.query(query)
     .then(() => next())
@@ -89,12 +89,12 @@ dbController.findMyBookList = (req, res, next) => {
   // We didn't have time to set up cookies
   const user_id = '1'
   // const user_id= req.cookies.ssid;
-  const query = `SELECT books.title, books.author, old_books.condition, books.isbn, old_books.old_book_id
+  const query = `SELECT books.title, books.author, users_books.condition, books.isbn, users_books.users_books_id
   FROM users
-  JOIN old_books
-  ON users.user_id = old_books.user_id
+  JOIN users_books
+  ON users.user_id = users_books.user_id
   JOIN books
-  ON old_books.bookISBN = books.isbn
+  ON users_books.bookISBN = books.isbn
   WHERE users.user_id = '${user_id}'`;
 
   db.query(query)
