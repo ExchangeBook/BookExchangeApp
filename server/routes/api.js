@@ -44,7 +44,7 @@ router.post('/register', userController.createUser, (req, res) => {
 });
 
 router.get('/verifyUser', userController.verifyUser, (req, res) => {
-  return res.status(200).json(res.locals.user);
+  return res.status(200).json(res.locals);
 });
 
 ///temp stuff
