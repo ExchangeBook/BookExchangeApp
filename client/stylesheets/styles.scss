@@ -279,6 +279,11 @@ input:focus {
             Cards
 **********************************/
 
+.cards{
+  display: flex;
+  align-items: center;
+}
+
 .card {
   background-color: #5a726e;
 }
