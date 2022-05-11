@@ -49,7 +49,7 @@ module.exports = {
     //   publicPath: '/public',
     //   directory: path.join(__dirname, './public'),
     // },
-    // hot: true,
+    hot: true,
     // port: 8080,
     proxy: {
       '*': { target: 'http://localhost:3000' },

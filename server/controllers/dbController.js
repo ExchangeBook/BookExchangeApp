@@ -108,5 +108,23 @@ dbController.findMyBookList = (req, res, next) => {
     });
 }
 
+dbController.requestBook = (req, res, next) => {
+  const user_id = req.body.userID;
+  const isbn = req.body.isbn;
+  // const user_id= req.cookies.ssid;
+  const query = `INSERT INTO user_books (requester)
+  VALUES (${user_id})
+  WHERE users_books.isbn = ${isbn}`;
+
+  db.query(query)
+    .then((data) => {
+      res.locals.requestBooks = data.rows;
+      next();
+    })
+    .catch((err) => {
+      console.log(err)
+      next(err);
+    });
+}
 
 module.exports = dbController;

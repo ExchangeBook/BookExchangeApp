@@ -15,8 +15,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       loggedIn: true,
-      userID: '1'
+      userID: '1',
     };
+  }
+  // METHOD TO UPDATE STATE USERID FOR LOGGED IN USER
+  componentDidMount() {
+    fetch('/')
   }
 
   render() {
@@ -36,7 +40,7 @@ class App extends React.Component {
             <Route path="/search" element={<Search loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
             <Route path="/" element={<Root />}></Route>
             <Route path="/:id" element={<NotFound />}></Route>
-            <Route path="/exchange" element={<Exchange/>}></Route>
+            <Route path="/exchange" element={<Exchange loggedIn={this.state.loggedIn} userID={this.state.userID}/>}></Route>
           </Routes>
         </Router>
       </div>

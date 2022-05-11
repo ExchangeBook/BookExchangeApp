@@ -20,6 +20,11 @@ router.post('/findOldBook', dbController.findOldBook, (req, res) => {
   return res.status(200).json(res.locals.oldbooks);
 });
 
+// To request a book from Find Books page
+router.get('/requestBook', (req, res) => {
+  return res.status(200).json('test my book requests')
+});
+
 //Interactions for Exchange Page
 router.get('/getMyBookRequests', (req, res) => {
   return res.status(200).json('test my book requests')
