@@ -21,18 +21,24 @@ router.post('/findOldBook', dbController.findOldBook, (req, res) => {
 });
 
 // To request a book from Find Books page
-router.get('/requestBook', (req, res) => {
-  return res.status(200).json('test my book requests')
+router.post('/requestBook', dbController.requestBook, (req, res) => {
+  return res.status(200).json(res.locals.requestBooks)
 });
 
 //Interactions for Exchange Page
-router.get('/getMyBookRequests', (req, res) => {
-  return res.status(200).json('test my book requests')
+router.get('/getMyBookRequests', dbController.getMyBookRequests, (req, res) => {
+  return res.status(200).json(res.locals.userBooks)
 });
 
-router.get('/getUserRequests', (req, res) => {
-  return res.status(200).json('test user request')
+router.get('/getAllBooks', dbController.getAllBooks, (req, res) => {
+  return res.status(200).json(res.locals.allBooks)
 })
+
+router.get('/getAllUsers', dbController.getAllUsers, (req, res) => {
+  return res.status(200).json(res.locals.allUsers)
+})
+////////////////////////////////
+
 
 //interactions in MyPage
 router.post('/deleteOldBook', dbController.deleteOldBook, (req, res) => {

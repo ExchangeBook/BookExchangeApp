@@ -276,21 +276,12 @@ input:focus {
 }
 
 /*********************************
-            Cards
+            Exchange Table
 **********************************/
 
-.cards{
-  display: flex;
-  align-items: center;
-}
-
-.card {
-  background-color: #5a726e;
-}
-
-.title {
+.incoming {
   text-align: center;
-  font-family: 'Josefin Slab', serif;
+  font-family: 'Bodoni Moda', serif;
 }
 
 /* .result-table tr{

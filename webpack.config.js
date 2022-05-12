@@ -11,7 +11,7 @@ module.exports = {
     filename: 'bundle.js',
     //path where we put the file above into
     //created everytime npm run build 
-    path: path.resolve(__dirname, './public/build'),
+    path: path.resolve(__dirname, './build'),
   },
   module: {
     rules: [
@@ -27,7 +27,7 @@ module.exports = {
       },
       {
         test: /.(css|scss)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
