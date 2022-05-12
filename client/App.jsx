@@ -22,9 +22,9 @@ class App extends React.Component {
     this.logOut = this.logOut.bind(this);
   }
   // METHOD TO UPDATE STATE USERID FOR LOGGED IN USER
-  componentDidMount() {
-    fetch('/')
-  }
+  // componentDidMount() {
+  //   fetch('/')
+  // }
 
   changeState (data) {
     if (data.err) {
