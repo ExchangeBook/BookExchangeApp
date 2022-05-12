@@ -8,6 +8,7 @@ import Register from './routes/Register.jsx';
 import MyPage from './routes/MyPage.jsx';
 import Search from './routes/Search.jsx';
 import NotFound from './routes/NotFound.jsx';
+import AddMyBook from './routes/AddMyBook.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class App extends React.Component {
             <Route path="/search" element={<Search loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
             <Route path="/" element={<Root />}></Route>
             <Route path="/:id" element={<NotFound />}></Route>
+            <Route path="/addmybook" element={<AddMyBook loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
           </Routes>
         </Router>
       </div>
