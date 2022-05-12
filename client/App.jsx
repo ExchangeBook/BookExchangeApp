@@ -21,6 +21,10 @@ class App extends React.Component {
     this.changeState = this.changeState.bind(this);
     this.logOut = this.logOut.bind(this);
   }
+  // METHOD TO UPDATE STATE USERID FOR LOGGED IN USER
+  componentDidMount() {
+    fetch('/')
+  }
 
   changeState (data) {
     if (data.err) {
@@ -59,7 +63,7 @@ class App extends React.Component {
             <Route path="/search" element={<Search loggedIn={this.state.loggedIn} userId={this.state.userId} />}></Route>
             <Route path="/" element={<Root />}></Route>
             <Route path="/:id" element={<NotFound />}></Route>
-            <Route path="/exchange" element={<Exchange/>}></Route>
+            <Route path="/exchange" element={<Exchange loggedIn={this.state.loggedIn} userID={this.state.userID}/>}></Route>
           </Routes>
         </Router>
       </div>
