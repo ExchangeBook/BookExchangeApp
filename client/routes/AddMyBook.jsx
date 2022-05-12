@@ -1,4 +1,4 @@
-const react = require('react');
+const React = require('react');
 
 class AddMyBook extends React.Component {
   constructor(props) {
@@ -9,21 +9,21 @@ class AddMyBook extends React.Component {
     }
     this.addBook = this.addBook.bind(this);
     this.getBook = this.getBook.bind(this);
-    this.onlyOne = this.onlyOne.bind(this);
+    // this.onlyOne = this.onlyOne.bind(this);
   }
   // onlyOne function allow only one checkbox checked
-  onlyOne(checkbox) {
-    const checkboxes = document.getElementByName('checkbox')
-    checkboxes.forEach(item => {
-      if (item !== checkbox) item.checked = false
-    })
-  };
+  // onlyOne(checkbox) {
+  //   const checkboxes = document.getElementByClassName('checkbox')
+  //   checkboxes.forEach(item => {
+  //     if (item !== checkbox) item.checked = false
+  //   })
+  // };
 
 
   // getBook function will get book info from server which fetch data from external API
   getBook(num) {
     e.preventDefault();
-    fetch('/api/addOldBook', { // route for fetching book data from api
+    fetch('/api/search', { // route for fetching book data from api
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -51,10 +51,11 @@ class AddMyBook extends React.Component {
         auther: document.getElementById('author').value,
         genre: document.getElementById('genre').value,
       }
+      console.log(`user input book data: ${book}`);
     }
     // if wishlist is true, add book to this.state.wishlist, send POST to wishlist endpoint
     if (document.getElementById('addToWishlist').checked) {
-      fetch('endpoint for wishlist', {
+      fetch('/api/wishlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ class AddMyBook extends React.Component {
     }
     // if library is true, add book to this.state.library, send POST to library endpoint
     if (document.getElementById('addToLibrary').checked) {
-      fetch('endpoint for library', {
+      fetch('/api/userLibrary', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,27 +85,42 @@ class AddMyBook extends React.Component {
     return (
       <div className='search-box'>
         <form className='search-form'>
-          <label>ISBN</label>
-          <input type='text' id='isbn' name='isbn'/><br></br>
-          <label>Title</label>
-          <input type='text' id='title' name='title'/><br></br>
-          <label>Author</label>
-          <input type='text' id='author' name='author'/><br></br>
-          <label>Genre</label>
-          <input type='text' id='genre' name='genre'/><br></br>
-          <label for='condition'>Condition (optional for wishlist)</label>
-          {/* <select name='condition' id='condition'>
+          <div className='search-input'>
+            <label>ISBN</label>
+            <input type='text' id='isbn' name='isbn'/><br></br>
+          </div>
+          <div className='search-input'>
+            <label>Title</label>
+            <input type='text' id='title' name='title'/><br></br>
+          </div>
+          <div className='search-input'>
+            <label>Author</label>
+            <input type='text' id='author' name='author'/><br></br>
+          </div>
+          <div className='search-input'>
+            <label>Genre</label>
+            <input type='text' id='genre' name='genre'/><br></br>
+          </div>
+          
+          {/* <label for='condition'>Condition (optional for wishlist)</label>
+          <select name='condition' id='condition'>
             <option value="Like New">Like New</option>
             <option value="Very Good">Very Good</option>
             <option value="Good">Good</option>
             <option value="Fair">Fair</option>
             <option value="Poor">Poor</option>
           </select><br></br> */}
-          <input type='checkbox' id='addToWishlist' name='checkbox' value='wishlist' onclick={this.onlyOne(this)}/>
-          <label for='addToWishlist'>I want to add this book to my wishlist</label><br></br>
-          <input type='checkbox' id='addToLibrary' name='checkbox' value='library' onclick={this.onlyOne(this)}/>
-          <label for='addToLibrary'>I want to add this book to my library</label><br></br>
-          <input type='submit' value='ADD THE BOOK' onclick={this.addBook}/>
+          <div>
+            <input type='checkbox' id='addToWishlist' className='checkbox' value='wishlist'/>
+            <label for='addToWishlist'>I want to add this book to my wishlist</label>
+          </div>
+          <div>
+            <input type='checkbox' id='addToLibrary' className='checkbox' value='library'/>
+            <label for='addToLibrary'>I want to add this book to my library</label>
+          </div>
+          <div>
+            <input type='submit' value='ADD THE BOOK' onclick={this.addBook}/>
+          </div>
         </form>
       </div>
     )
