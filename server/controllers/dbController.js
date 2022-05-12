@@ -108,13 +108,60 @@ dbController.findMyBookList = (req, res, next) => {
     });
 }
 
+// Three Controllers to Return all info. 
+
+dbController.getMyBookRequests = async (req, res, next) => {
+  try {
+    const query = 'SELECT * FROM users_books'
+    const userBooks = await db.query(query)
+    res.locals.userBooks = userBooks.rows;
+    return next();
+  } catch (err) {
+    return next({
+      log: 400,
+      message: 'Failed to get usersBooks'
+    })
+  }
+}
+
+dbController.getAllBooks = async (req, res, next) => {
+  try {
+    const query = 'SELECT * FROM books'
+    const books = await db.query(query)
+    res.locals.allBooks = books.rows;
+    return next();
+  } catch (err) {
+    return next({
+      log: 400,
+      message: 'Failed to getAllBooks'
+    })
+  }
+}
+dbController.getAllUsers = async (req, res, next) => {
+  try{
+    const query = 'SELECT * FROM users'
+    const users = await db.query(query)
+    res.locals.allUsers = users.rows;
+    return next();
+  } catch (err) {
+    return next({
+      log: 400,
+      message: 'Failed to get all users'
+    })
+  }
+}
+
+
+
 dbController.requestBook = (req, res, next) => {
   const user_id = req.body.userID;
+  const username = req.body.username;
   const isbn = req.body.isbn;
   // const user_id= req.cookies.ssid;
-  const query = `INSERT INTO user_books (requester)
-  VALUES (${user_id})
-  WHERE users_books.isbn = ${isbn}`;
+  const query = `UPDATE users_books 
+  SET requester = ${user_id}
+  WHERE users_books.bookisbn = '${isbn}' AND users_books.user_id = (SELECT user_id FROM users WHERE users.username = '${username}')`;
+  // And where user ID equals to User ID of owner
 
   db.query(query)
     .then((data) => {

@@ -1,4 +1,5 @@
 const React = require('react');
+import ExchangeRow from '../components/ExchangeRow';
 
 class Exchange extends React.Component {
     constructor(props) {
@@ -7,7 +8,8 @@ class Exchange extends React.Component {
          incomingRequests: [],
          outgoingRequests: [],
          userBooks: [],
-         allBooks: []
+         allBooks: [],
+         users: []
         };
     }
 
@@ -16,12 +18,11 @@ class Exchange extends React.Component {
         this.getAllUsers()
         this.getAllBooks()
     }
-
       // INCOMING BOOK REQUEST
     // TO GET REQUESTED BOOK FROM OTHER USERS AND THEIR INFO
-    // From database get all books belonging to the logged in user (user_id)
-    // Render only the books that belong to user if there is a requester id present under user_books
-    // Using the requester id, render the user that requested the specifc book
+    // From database get all books belonging to the logged in user (user_id) ex -> where users_books.user_id = 1
+    // Render only the books that belong to user if there is a requester id present under user_books ex -> Where users_books.requester !== null
+    // Using the requester id, render the user that requested the specifc book ex -> select users where requester = 2 also, select book where isbn = "that book"
     // Are we rendering different state depending on the user logged in. 
 
     getAllUserBooks ()  {
@@ -36,7 +37,10 @@ class Exchange extends React.Component {
         .then(response => response.json())
         .then(data => {
         this.setState({ userBooks: data });
-        });
+        })
+        .catch((err) => {
+            console.log(`Error getAllUsersBooks ${err}`)
+        })
     }
     
     // OUTGOING BOOK REQUEST
@@ -44,7 +48,7 @@ class Exchange extends React.Component {
     // Based on logged in user ID, search users_books table if logged in user ID is present under requester section
 
     getAllUsers () {
-        fetch('/api/getUserRequests', {
+        fetch('/api/getAllUsers', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -53,7 +57,10 @@ class Exchange extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-        this.setState({ requestedUsers: data });
+        this.setState({ users: data });
+        })
+        .catch((err) => {
+            console.log(`Error getAllUsers ${err}`)
         });
     // 
     }
@@ -68,22 +75,49 @@ class Exchange extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-        this.setState({allBoks: data})
+        this.setState({allBooks: data})
+        })
+        .catch((err) => {
+            console.log(`Error getAllBooks ${err}`)
         })
     }
-
-
     // OUTGOING BOOK REQUEST
     // TO GET ALL BOOKS LOGGED IN USER REQUESTED
     // Based on logged in user ID, search users_books table if logged in user ID is present under requester section
 
 
     // Map out both requested user and books data to render as request cards 
-
+    // For Loop iteration through the data. 
+      // For every iteration assign the row
+      // Each property at the Ith index. 
     render () {
-        console.log(this.props)
+        const userTest = this.state.users[0]
+        console.log(this.state.userBooks)
+       // Incoming Request Table 
        return (
-              <h1>ldaasdfasdfl</h1>
+              <div className='exchange'>
+                  <h3 className='incoming'>Incoming Requests</h3>
+                  {this.state.users.length > 0 && (
+                      <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                          <th scope="col">Book Requested</th>
+                          <th scope="col">User</th>
+                          <th scope="col">Email</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {this.state.userBooks.map((user) => {
+                          return (<tr>
+                              <th scope="row">1</th>
+                              <td>{user.username}</td>
+                              <td>{user.email}</td>
+                          </tr>)
+                          })}
+                      </tbody>
+                      </table>
+                  )}
+              </div>
        )
     }
 }

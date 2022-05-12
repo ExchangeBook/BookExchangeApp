@@ -19,9 +19,10 @@ class SearchBookRow extends React.Component {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({ userID: this.props.userID, isbn: this.props.isbn})
+      body: JSON.stringify({ userID: this.props.userID, isbn: this.props.isbn, username: this.props.username})
     })
       .then(response => response.json())
+      .then(data => console.log("data returned from request book controller:", data))
 
   }
 
@@ -33,7 +34,7 @@ class SearchBookRow extends React.Component {
         <td>{this.props.isbn}</td>
         <td>{this.props.condition}</td>
         <td>{this.props.username}</td>
-        <td><center><button type="button" className="req-button" onCLick={this.requestBook}>request</button></center></td>
+        <td><center><button type="button" className="req-button" onClick={this.requestBook}>Request</button></center></td>
       </tr>
     )
   }
