@@ -45,12 +45,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   devServer: {
-    // static: {
-    //   publicPath: '/public',
-    //   directory: path.join(__dirname, './public'),
-    // },
     hot: true,
-    // port: 8080,
     proxy: {
       '*': { target: 'http://localhost:3000' },
       '/api': { target: 'http://localhost:3000' },

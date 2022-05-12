@@ -51,10 +51,10 @@ router.get('/getMyOldBookList', dbController.findMyBookList, (req, res) => {
 
 //interactions in Register
 router.post('/register', userController.createUser, (req, res) => {
-  return res.status(200).json(res.locals.user);
+  return res.status(200).json(res.locals);
 });
 
-router.get('/verifyUser', userController.verifyUser, (req, res) => {
+router.post('/verifyUser', userController.verifyUser, (req, res) => {
   return res.status(200).json(res.locals);
 });
 

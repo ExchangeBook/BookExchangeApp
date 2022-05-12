@@ -7,11 +7,12 @@ userController.createUser = (req, res, next) => {
   //username = hashedusername
   bcrypt.hash(password, 12)
   .then((hash) => {
-      const query = `INSERT INTO users ("username", "password", "email", "phone", "address") VALUES ($1, $2, $3, $4, $5)`;
+      const query = `INSERT INTO users ("username", "password", "email", "phone", "address") VALUES ($1, $2, $3, $4, $5) RETURNING user_id, username, email, phone, address`;
       const values = [username, hash, email, phone, address];
       db.query(query, values)
-        .then(() => {
-          res.locals.user = 'test';
+        .then((sqlRes) => {
+          res.locals.user = sqlRes.rows[0];
+          res.locals.loggedIn = true;
           next()
         })
         .catch((err) => {
@@ -35,31 +36,42 @@ userController.verifyUser = (req, res, next) => {
   
   db.query(query1, values1)
     .then(sqlRes => {
-      hash = sqlRes.rows[0].password;
+      const hash = sqlRes.rows[0].password;
       bcrypt.compare(password, hash)
         .then(result => {
+          console.log('hash result ' + result)
           if (result) {
             const query2 = `SELECT user_id, username, email, phone, address FROM users WHERE username = $1`;
             const values2 = [username];
           
             db.query(query2, values2)
               .then((verifiedUser) => {
-                res.locals.user = verifiedUser.rows[0]
+                res.locals.user = verifiedUser.rows[0];
+                console.log(verifiedUser)
                 res.locals.loggedIn = true;
+                return next();
               })
-              .then(() => next())
-              .catch(err => {
+               .catch(err => {
                 const errObj = {
-                  err: err,
+                  log: err,
                   message: { Error: 'Login Failed' }
                 }
                 next(errObj)
               })
           } else {
             res.locals.loggedIn = false;
+            res.locals.user = {user_id: 'imnotreal'};
+            return next();
           }
         })
-    }).catch(err => {
+        .catch(error => {
+          return next({
+            log: "error in bcrypt compare",
+            message: { err: "error in bcrypt compare" }
+          })
+        })
+    })
+    .catch(err => {
       return next({
         log: "username or password not found",
         message: { err: "username or password not found" }
