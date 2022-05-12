@@ -6,7 +6,7 @@ const apiController = require('../controllers/apiController');
 const userController = require('../controllers/userController');
 //const db = require('../models/booksModels');
 
-
+// Route is not being used in app
 router.get('/findBook', apiController.findBook, apiController.findAuthor, (req, res) => {
   return res.status(200).json(res.locals.bookInDB);
 });
@@ -42,7 +42,7 @@ router.get('/getAllUsers', dbController.getAllUsers, (req, res) => {
 
 //interactions in MyPage
 router.post('/deleteOldBook', dbController.deleteOldBook, (req, res) => {
-  return res.status(200).send(req.body.myOldBookId);
+  return res.status(200).json(req.body.myOldBookId);
 });
 
 router.get('/getMyOldBookList', dbController.findMyBookList, (req, res) => {
