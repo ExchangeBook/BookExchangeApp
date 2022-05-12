@@ -16,7 +16,7 @@ CREATE TABLE books (
 
 CREATE TABLE users_books (
 	"users_books_id" serial PRIMARY KEY NOT NULL,
-	"requester" bigint NOT NULL REFERENCES users,
+	"requester" bigint REFERENCES users,
 	"user_id" integer NOT NULL REFERENCES users,
 	"bookisbn" varchar NOT NULL REFERENCES books,
 	"condition" varchar NOT NULL

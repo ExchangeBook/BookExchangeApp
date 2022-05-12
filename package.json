@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server/server.js",
     "build": "webpack",
-    "dev": "concurrently \" webpack serve --hot --open\" \"nodemon server/server.js\""
+    "dev": "concurrently \" webpack-dev-server --hot --open\" \"nodemon server/server.js\""
   },
   "repository": {
     "type": "git",
@@ -45,6 +45,8 @@
     "html-webpack-plugin": "^5.5.0",
     "isomorphic-fetch": "^3.0.0",
     "nodemon": "^2.0.7",
+    "postcss": "^8.4.13",
+    "postcss-loader": "^6.2.1",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",

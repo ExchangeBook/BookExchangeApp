@@ -11,5 +11,5 @@ import './stylesheets/styles.scss'
 //contains all react components
 render(
   <App />,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

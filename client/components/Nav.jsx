@@ -13,7 +13,7 @@ class Nav extends React.Component {
           <li key={1}><Link to="/mypage">My Books</Link></li>
           <li key={2}><Link to="/exchange">My Requests</Link></li>
           <li key={3}><Link to="/search">Find Books</Link></li>
-          <li key={4}><Link to="/">Log out</Link></li>
+          <li key={4}><Link to="/" onClick={this.props.logOut}>Log out</Link></li>
         </ul>
       )
     } else {

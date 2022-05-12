@@ -14,11 +14,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
-      userID: '1'
+      loggedIn: false,
+      userId: null,
+      error: null
     };
+    this.changeState = this.changeState.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
+  changeState (data) {
+    if (data.err) {
+      console.log('error foundddd')
+      this.setState({loggedIn: false, error: "Please Try Again"});
+    } else if (data.loggedIn) {
+      const newState = {
+            ...this.state,
+            loggedIn: true, 
+            userId: data.user.user_id
+      }
+      this.setState(newState);
+    } else {
+      this.setState({loggedIn: false, error: "Please Try Again"});
+    }
+  }
+
+  logOut () {
+    this.setState({loggedIn: false, userId: null, error: null});
+  }
+  
   render() {
     return (
       <div>
@@ -28,12 +51,12 @@ class App extends React.Component {
         </div>
         <Router>
           {/* NAV will always be rendered */}
-          <Nav loggedIn={this.state.loggedIn} userID={this.state.userID} />
+          <Nav logOut={this.logOut} loggedIn={this.state.loggedIn} userId={this.state.userId} />
           <Routes>
-            <Route path="/login" element={<Login loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
-            <Route path="/register" element={<Register loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
-            <Route path="/mypage" element={<MyPage loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
-            <Route path="/search" element={<Search loggedIn={this.state.loggedIn} userID={this.state.userID} />}></Route>
+            <Route path="/login" element={<Login changeState={this.changeState} loggedIn={this.state.loggedIn} userId={this.state.userId} error={this.state.error} />}></Route>
+            <Route path="/register" element={<Register changeState={this.changeState} loggedIn={this.state.loggedIn} userId={this.state.userId} error={this.state.error} />}></Route>
+            <Route path="/mypage" element={<MyPage loggedIn={this.state.loggedIn} userId={this.state.userId} />}></Route>
+            <Route path="/search" element={<Search loggedIn={this.state.loggedIn} userId={this.state.userId} />}></Route>
             <Route path="/" element={<Root />}></Route>
             <Route path="/:id" element={<NotFound />}></Route>
             <Route path="/exchange" element={<Exchange/>}></Route>
