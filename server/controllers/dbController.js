@@ -1,112 +1,110 @@
+const { Pool } = require('pg');
 const db = require('../models/booksModels');
 const dbController = {};
 
-dbController.findBook = (req, res, next) => {
-  // destructure req body to retrieve ISBN
-  const { isbn } = req.body;
-  // define the query to get the field 
-  const query = `SELECT * FROM books WHERE isbn = '${isbn}'`;
-  db.query(query)
-    .then((data) => {
-      // check if returned object from query has row property with more than 1 row. If so, bookindb is true. Otherwise, bookindb is false
-      data.rowCount > 0 ? res.locals.bookInDB = true : res.locals.bookInDB = false;
-      next();
-    })
-    .catch((err) => {
-      console.log(err)
-      next(err);
-    });
+// return the user's wishlist
+dbController.getWishlist = function (req, res, next){
+  const queryArray = [req.body.user_id];
+  const queryString = 
+  `SELECT
+    book_id,  title, author, genre, isbn, img_url 
+  FROM 
+    wishlist LEFT JOIN books ON wishlist.books_id=books.id
+  WHERE
+    wishlist.user_id=$1`;
+  db.query(queryString, queryArray)
+  .then(response => {
+    console.log('HERE IS THE RESULT OF THE WISHLIST QUERY: ', response.rows);
+    next();
+  }).catch(err =>
+    next(err)
+  );
 }
 
-dbController.addBook = (req, res, next) => {
-  // if book alrady exits in db, move onto next middlewar function
-  if (res.locals.bookInDB) return next();
-  //add the new book
-  //deconstruct the res.locals.book object 
-  const { isbn_13, title, author, subjects } = res.locals.book;
-  // console.log("hello", res.locals.book);
-  const query = `
-  INSERT INTO books ("isbn", "title", "author", "genre")
-  VALUES ('${isbn_13}', '${title}', '${author}', '${subjects}')
-  `;
-  // only adding/working with one specific attribute
-  db.query(query)
-    .then(() => next())
-    .catch((err) => {
-      next(err);
-    });
-};
 
-dbController.findOldBook = (req, res, next) => {
-  const keyword = req.body.searchString;
-  const query = `SELECT users.username, users.email, books.title, books.author, old_books.condition, books.isbn
-  FROM users
-  JOIN old_books
-  ON users.user_id = old_books.user_id
-  JOIN books
-  ON old_books.bookISBN = books.isbn
-  WHERE title ~* '\\y${keyword}\\y'`;
-
-  db.query(query)
-    .then((data) => {
-      res.locals.oldbooks = data.rows;
-      next();
-    })
-    .catch((err) => {
-      console.log(err)
-      next(err);
-    });
+// return the user's library
+dbController.getUserLibrary = function (req, res, next){
+  const queryArray = [req.body.user_id];
+  const queryString = 
+  `SELECT
+    book_id,  title, author, genre, isbn, img_url 
+  FROM 
+    wishlist LEFT JOIN books ON user_library.books_id=books.id
+  WHERE
+    wishlist.user_id=$1`;
+  db.query(queryString, queryArray)
+  .then(response => {
+    console.log('HERE IS THE RESULT OF THE USER LIBRARY QUERY: ', response.rows);
+    next();
+  }).catch(err =>
+    next(err)
+  );
 }
 
-dbController.addOldBook = (req, res, next) => {
-  const { isbn, condition } = req.body;
-  const userID = '1';
-  const query = `
-  INSERT INTO old_books ("user_id", "bookisbn", "condition")
-  VALUES ('${userID}', '${isbn}', '${condition}')
-  `;
-  db.query(query)
-    .then(() => next())
-    .catch((err) => {
-      next(err);
-    });
-};
-
-dbController.deleteOldBook = (req, res, next) => {
-  //deconstruct the res.locals.book object 
-  const _id = req.body.myOldBookId;
-  const query = `DELETE FROM old_books WHERE old_book_id = ${_id}`;
-  //CHANGE TO THIS LATER ONCE API WORKS AND WHAT RESULTS ARE ^^
-  db.query(query)
-    .then(() => next())
-    .catch((err) => {
-      next(err);
-    });
+// add a book to the table of books (in preparating for adding it to the wishlist or user_library)
+dbController.addBook = function (req, res, next){
+  const user_id = req.body.user_id;
+  const x =  req.body.book;
+  const queryArray = [user_id, x.title, x.author, x.genre, x.isbn, x.img_URL];
+  const queryString = 
+  `INSERT INTO
+    books(title, author, genre, isbn, img_URL)
+  VALUES
+    ($1, $2, $3, $4, $5)
+  RETURNING
+    book_id`;
+  db.query(queryString, queryArray)
+  .then(response => {
+    res.locals.book_id
+    console.log('CONFIRMATION OF BOOK ENTRY and BOOK_ID: ', response);
+    next();
+  }).catch(err =>
+    next(err)
+  );
 }
 
-dbController.findMyBookList = (req, res, next) => {
-  // ***** user_id is currently hard-coded to 1, but ideally it would pull from req.cookies.ssid.
-  // We didn't have time to set up cookies
-  const user_id = '1'
-  // const user_id= req.cookies.ssid;
-  const query = `SELECT books.title, books.author, old_books.condition, books.isbn, old_books.old_book_id
-  FROM users
-  JOIN old_books
-  ON users.user_id = old_books.user_id
-  JOIN books
-  ON old_books.bookISBN = books.isbn
-  WHERE users.user_id = '${user_id}'`;
+// add a book to the wish list
+dbController.addToWishlist = function(req, res, next){
+  const queryArray = [res.locals.user_id, res.locals.book_id];
+  const queryString = 
+  `INSERT INTO
+    wishlist(user_id, book_id)
+  VALUES
+    ($1, $2)`
+  db.query(queryString, queryArray)
+  .then(response => {
+    console.log('CONFIRMATION OF WISHLIST ADDITION: ', response);
+    next();
+  }).catch(err =>
+    next(err)
+  );
 
-  db.query(query)
-    .then((data) => {
-      res.locals.mybooks = data.rows;
-      next();
-    })
-    .catch((err) => {
-      console.log(err)
-      next(err);
-    });
 }
 
+
+
+// add a book to the library
+dbController.addToUserLibrary = function(req, res, next){
+  const queryArray = [res.locals.user_id, res.locals.book_id];
+  const queryString = 
+  `INSERT INTO
+    user_library(user_id, book_id)
+  VALUES
+    ($1, $2)`
+  db.query(queryString, queryArray)
+  .then(response => {
+    console.log('CONFIRMATION OF WISHLIST ADDITION: ', response);
+    next();
+  }).catch(err =>
+    next(err)
+  );
+
+}
+
+
+// delete a book from the wishlist
+
+
+// delte a book from teh library
 
 module.exports = dbController;
