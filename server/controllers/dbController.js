@@ -50,6 +50,7 @@ dbController.findOldBook = (req, res, next) => {
   db.query(query)
     .then((data) => {
       res.locals.oldbooks = data.rows;
+      //console.log("res.locals.oldbooks:", res.locals.oldbooks)
       next();
     })
     .catch((err) => {
