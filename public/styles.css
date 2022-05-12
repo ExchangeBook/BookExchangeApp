@@ -179,19 +179,34 @@ input:focus {
   margin: 5px 10px;
   gap: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+}
+
+.search-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: ;
 }
 
 .search-form input {
   height: 30px;
-  width: 90%;
+  width: 70%;
   border-radius: 5px;
   border-style: none;
   padding: 3px 15px;
 }
 
-.search-form input[type=submit] {
+
+.search-form input[type=checkbox] {
   width: 10%;
+}
+.search-form div label {
+  width: 30px;
+}
+
+.search-form input[type=submit] {
+  width: 20%;
   height: 36px;
   padding: 3px;
   margin-right: 0px;
