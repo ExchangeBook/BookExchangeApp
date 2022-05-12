@@ -2,7 +2,8 @@ DROP TABLE IF EXISTS users, books, old_books, wishlist, user_library;
 
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
-  email VARCHAR(100) NOT NULL
+  email VARCHAR(100) NOT NULL UNIQUE,
+  token VARCHAR(200) UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS books (
@@ -18,7 +19,7 @@ CREATE TABLE IF NOT EXISTS books (
 CREATE TABLE IF NOT EXISTS wishlist (
   user_id INTEGER references users(id),
   book_id INTEGER references books(id),
-  PRIMARY KEY(user_id, book_id)
+  PRIMARY KEY(book_id)
 );
 
 CREATE TABLE IF NOT EXISTS user_library (

@@ -28,3 +28,27 @@ VALUES
   ('book13', 'author 14', 'genre 2', 4),
   ('book14', 'author 15', 'genre 3', 5)
 ;
+
+INSERT INTO wishlist(user_id, book_id)
+VALUES
+  (1,1),
+  (2,2),
+  (4,4),
+  (2,5),
+  (5,6),
+  (1,7),
+  (5,8),
+  (3,3)
+ ; 
+
+INSERT INTO user_library(user_id, book_id)
+VALUES
+  (1,9),
+  (2,10),
+  (4,11),
+  (2,12),
+  (5,13),
+  (1,14),
+  (5,16),
+  (3,15)
+ ; 
