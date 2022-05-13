@@ -19,7 +19,11 @@ class SearchBookRow extends React.Component {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({ userID: this.props.userID, isbn: this.props.isbn, username: this.props.username})
+      body: JSON.stringify({ 
+        userId: this.props.userId, 
+        isbn: this.props.isbn, 
+        username: this.props.username
+      })
     })
       .then(response => response.json())
       .then(data => console.log("data returned from request book controller:", data))

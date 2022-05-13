@@ -26,16 +26,17 @@ router.post('/requestBook', dbController.requestBook, (req, res) => {
 });
 
 //Interactions for Exchange Page
-router.get('/getMyBookRequests', dbController.getMyBookRequests, (req, res) => {
-  return res.status(200).json(res.locals.userBooks)
-});
 
-router.get('/getAllBooks', dbController.getAllBooks, (req, res) => {
-  return res.status(200).json(res.locals.allBooks)
+//route to get incoming requests for exchange page
+router.get('/getIncomingInfo/:userId', dbController.getMyBookRequests, (req, res) => {
+  return res.status(200).json(res.locals.incomingRequests)
+})
+router.get('/getOutgoingInfo/:userId', dbController.getOutgoingRequests, (req, res) => {
+  return res.status(200).json(res.locals.outgoingRequests)
 })
 
-router.get('/getAllUsers', dbController.getAllUsers, (req, res) => {
-  return res.status(200).json(res.locals.allUsers)
+router.post('/shipped', dbController.shipBook, (req, res) => {
+  return res.status(200).json(res.locals.shipped)
 })
 ////////////////////////////////
 
@@ -45,7 +46,7 @@ router.post('/deleteOldBook', dbController.deleteOldBook, (req, res) => {
   return res.status(200).json(req.body.myOldBookId);
 });
 
-router.get('/getMyOldBookList', dbController.findMyBookList, (req, res) => {
+router.get('/getMyOldBookList/:userId', dbController.findMyBookList, (req, res) => {
   return res.status(200).json(res.locals.mybooks);
 });
 

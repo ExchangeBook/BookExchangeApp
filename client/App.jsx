@@ -63,7 +63,7 @@ class App extends React.Component {
             <Route path="/search" element={<Search loggedIn={this.state.loggedIn} userId={this.state.userId} />}></Route>
             <Route path="/" element={<Root />}></Route>
             <Route path="/:id" element={<NotFound />}></Route>
-            <Route path="/exchange" element={<Exchange loggedIn={this.state.loggedIn} userID={this.state.userID}/>}></Route>
+            <Route path="/exchange" element={<Exchange loggedIn={this.state.loggedIn} userId={this.state.userId}/>}></Route>
           </Routes>
         </Router>
       </div>
