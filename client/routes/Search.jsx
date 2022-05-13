@@ -42,7 +42,7 @@ class Search extends React.Component {
           rows.push(<SearchBookRow
             {...this.state.availiableBooks[i]}
             key={i}
-            userID = {this.props.userID}
+            userId = {this.props.userId}
           />)
         }
       }
