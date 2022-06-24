@@ -66,6 +66,12 @@ npm run dev
 npm start
 ```
 
+### Data-Flow
+<p align="center">
+<img src="./images/data-flow.png" />
+</p>
+
+
 ## <b>Authors</b>
 
 - **David Kim** - [@codejunkie7](https://github.com/codejunkie7)
