@@ -1,5 +1,6 @@
 <h1 align="center">
   <br>
+    <img src="./images/book-4986.png">
     <br>
     <br>
   The Book Exchange
@@ -64,3 +65,16 @@ npm run dev
 ```bash
 npm start
 ```
+
+## <b>Authors</b>
+
+- **David Kim** - [@codejunkie7](https://github.com/codejunkie7)
+- **Robby Tipton** - [@RobbyTipton](https://github.com/RobbyTipton)
+- **Andrew Park** - [@andrewcpark](https://github.com/andrewcpark)
+- **Hannah Santoyo** - [@hann7](https://github.com/hann7)
+- **Yeunha Kim** - [@yeunhakim93](https://github.com/yeunhakim93)
+- **Li Cheng** - [@delacour124](https://github.com/delacour124)
+- **Max Cook** - [@maxwellcook](https://github.com/maxwellcook)
+- **Clay Sawyer** - [@claysawyer](https://github.com/claysawyer)
+
+
