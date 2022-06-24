@@ -8,7 +8,7 @@
 </h1>
 
 <p align="center">
-<img src="./images/official-bookExchange.gif" />
+<img src="./images/official-bookExchange.gif">
 </p>
 
 ## Description
